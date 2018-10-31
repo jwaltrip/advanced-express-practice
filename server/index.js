@@ -29,7 +29,7 @@ app.post("/comments", (req, res, next) => {
     postId: req.body.postId
   };
 
-  // add new user to users array
+  // add new comment to comments array
   comments.push(newComment);
 
   // return the item just added
@@ -47,8 +47,7 @@ app.get("/products/:id", (req, res, next) => {
   return res.json(product);
 });
 
-// TODO add reviews array to post body
-// POST - add a comment to the products array
+// POST - add a product to the products array
 app.post("/products", (req, res, next) => {
   // increment _id +1
   const newProduct = {
@@ -62,7 +61,7 @@ app.post("/products", (req, res, next) => {
     category: req.body.category,
   };
 
-  // add new user to users array
+  // add new product to products array
   products.push(newProduct);
 
   // return the item just added
@@ -80,8 +79,7 @@ app.get("/vehicles/:id", (req, res, next) => {
   return res.json(vehicle);
 });
 
-// TODO add post route for vehicles
-// POST - add a comment to the products array
+// POST - add a vehicle to the vehicles array
 app.post("/vehicles", (req, res, next) => {
   // increment _id +1
   const newVehicle = {
@@ -98,7 +96,7 @@ app.post("/vehicles", (req, res, next) => {
     isNew: req.body.isNew,
   };
 
-  // add new user to users array
+  // add new vehicle to vehicles array
   vehicles.push(newVehicle);
 
   // return the item just added
@@ -117,9 +115,25 @@ app.get("/contacts/:id", (req, res, next) => {
 });
 
 // TODO add post route for contacts
+// POST - add a contact to the contacts array
+app.post("/contacts", (req, res, next) => {
+  // increment _id +1
+  const newContact = {
+    _id: contacts[contacts.length-1]._id + 1,
+    name: req.body.name,
+    occupation: req.body.occupation,
+    avatar: req.body.avatar,
+  };
+
+  // add new contact to contacts array
+  contacts.push(newContact);
+
+  // return the item just added
+  return res.json(contacts[contacts.length - 1]);
+});
 
 // tell server to listen on port 3002
-app.listen(3003, (err) => {
+app.listen(3001, (err) => {
   if (err) {
     return console.log("Error", err);
   }
