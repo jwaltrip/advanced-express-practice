@@ -11,7 +11,7 @@ const products_route = require("./routes/products.route");
 const vehicles_route = require("./routes/vehicles.route");
 const contacts_route = require("./routes/contacts.route");
 
-// setup comments route thats connected with mongo
+// setup routes
 app.use("/", comments_route); // comments route
 app.use("/", products_route); // products route
 app.use("/", vehicles_route); // vehicles route
