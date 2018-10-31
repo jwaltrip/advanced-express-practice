@@ -6,15 +6,10 @@ const contacts_controller = require("../controllers/contacts.controller");
 const contacts = contacts_controller.contacts;
 
 // GET all contacts array
-router.get("/contacts", (req, res, next) => {
-  return res.json(contacts);
-});
+router.get("/contacts", contacts_controller.list);
 
 // GET specific contact id
-router.get("/contacts/:id", (req, res, next) => {
-  const contact = contacts.find(c => c._id == req.params.id);
-  return res.json(contact);
-});
+router.get("/contacts/:id", contacts_controller.show);
 
 // POST - add a contact to the contacts array
 router.post("/contacts", (req, res, next) => {
