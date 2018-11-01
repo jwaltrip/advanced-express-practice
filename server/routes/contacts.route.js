@@ -3,7 +3,6 @@ const router = express.Router();
 
 // import commnet controller
 const contacts_controller = require("../controllers/contacts.controller");
-// const contacts = contacts_controller.contacts;
 
 // GET all contacts array
 router.get("/contacts", contacts_controller.list);

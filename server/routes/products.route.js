@@ -3,7 +3,6 @@ const router = express.Router();
 
 // import commnet controller
 const products_controller = require("../controllers/products.controller");
-// const products = products_controller.products;
 
 // GET all products array
 router.get("/products", products_controller.list);
