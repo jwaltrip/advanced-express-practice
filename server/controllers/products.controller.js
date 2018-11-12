@@ -1,35 +1,42 @@
-// import products array and export it
-const products = require("../products");
-module.exports.products = products;
+// import Products mongodb model
+const Products = require("../models/ProductModel");
 
 // products LIST fn
 module.exports.list = function (req, res, next) {
-  return res.json(products);
+  // return res.json(products);
+  Products.find({}).exec()
+    .then(products => {
+      return res.send(products);
+    })
+    .catch(err => {
+      console.log("Error retrieving all prodcuts from mongo ", err);
+      return res.send(err);
+    });
 };
 
 // products SHOW fn
 module.exports.show = function (req, res, next) {
-  const product = products.find(p => p._id == req.params.id);
-  return res.json(product);
+  Products.findById(req.params.id).exec()
+    .then(product => {
+      return res.send(product);
+    })
+    .catch(err => {
+      console.log("Error retrieving a single product ", err);
+      return res.send(err);
+    });
 };
 
 // products CREATE fn
 module.exports.create = function (req, res, next) {
-  // increment _id +1
-  const newProduct = {
-    _id: products[products.length-1]._id + 1,
-    name: req.body.name,
-    description: req.body.description,
-    reviews: req.body.reviews,
-    rating: req.body.rating,
-    imgUrl: req.body.imgUrl,
-    price: req.body.price,
-    category: req.body.category,
-  };
+  // create new products model
+  const product = new Products();
+  // set data to be saved to mongo
+  product.name = req.body.name;
+  product.description = req.body.description;
+  // insert the new document, and return the newly created doc after it's inserted
+  product.save((err, newProduct) => {
+    if (err) return res.send(err);
 
-  // add new product to products array
-  products.push(newProduct);
-
-  // return the item just added
-  return res.json(products[products.length - 1]);
+    return res.send(newProduct);
+  });
 };
