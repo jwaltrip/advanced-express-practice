@@ -1,39 +1,43 @@
-// import vehicles array and export it
-const vehicles = require("../vehicles");
-module.exports.vehicles = vehicles;
+// import Vehicles mongo model
+const Vehicles = require("../models/VehicleModel");
 
 // vehicles LIST fn
 module.exports.list = function (req, res, next) {
-  return res.json(vehicles);
+  Vehicles.find({}).exec()
+    .then(vehicless => {
+      return res.send(vehicless);
+    })
+    .catch(err => {
+      console.log("Error listing all vehicles ", err);
+      return res.send(err);
+    });
 };
 
 // vehicles SHOW fn
 module.exports.show = function (req, res, next) {
-  const vehicle = vehicles.find(v => v._id == req.params.id);
-  return res.json(vehicle);
+  Vehicles.findById(req.params.id).exec()
+    .then(vehicle => {
+      return res.send(vehicle);
+    })
+    .catch(err => {
+      console.log("Error retrieving a single vehicle from db ", err);
+      return res.send(err);
+    });
 };
 
 // vehicles CREATE fn
 module.exports.create = function (req, res, next) {
-  // increment _id +1
-  const newVehicle = {
-    _id: vehicles[vehicles.length-1]._id + 1,
-    imgUrl: req.body.imgUrl,
-    year: req.body.year,
-    make: req.body.make,
-    model: req.body.model,
-    price: req.body.price,
-    km: req.body.km,
-    miles: req.body.miles,
-    fuels: req.body.fuels,
-    city: req.body.city,
-    isNew: req.body.isNew,
-  };
+  // create new Vehicles mongo model
+  const vehicle = new Vehicles();
+  // set data to be saved to mongo
+  vehicle.year = req.body.year;
+  vehicle.make = req.body.make;
+  vehicle.model = req.body.model;
+  // insert the new document, and return the newly created doc after it's inserted
+  vehicle.save((err, newVehicle) => {
+    if (err) return res.send(err);
 
-  // add new vehicle to vehicles array
-  vehicles.push(newVehicle);
-
-  // return the item just added
-  return res.json(vehicles[vehicles.length - 1]);
+    return res.send(newVehicle);
+  });
 };
 
