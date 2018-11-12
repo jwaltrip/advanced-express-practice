@@ -1,9 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+// import mongoose to connect to mongodb
+const mongoose = require("mongoose");
 
 const app = express();
 
+// setup bodyparser middleware
 app.use(bodyParser.json());
+
+// setup mongoDB connection
+mongoose.Promise = global.Promise;
+// mongoDB connection string
+mongoose.connect("mongodb://aca-user:pass1234@ds159563.mlab.com:59563/advanced-express-practice");
+
+// TODO import mongoose models
 
 // import routes
 const comments_route = require("./routes/comments.route");
