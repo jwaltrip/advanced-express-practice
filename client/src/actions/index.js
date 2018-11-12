@@ -72,7 +72,7 @@ function commentLoaded(comment) {
 }
 export function loadComment(id) {
   return function (dispatch) {
-    fetch(`/comment/${id}`)
+    fetch(`/comments/${id}`)
     .then( (res) => {
       return res.json();
     }).then( (comment) => {
@@ -84,7 +84,7 @@ export function loadComment(id) {
 const contactLoaded = (contact) => ({type: "GET_CONTACT_DONE", value: contact});
 export const loadContact = (id) => (
   (dispatch) => {
-    fetch(`/contact/${id}`)
+    fetch(`/contacts/${id}`)
     .then( (res) => res.json())
     .then( (contact) => {
       dispatch(contactLoaded(contact))
@@ -100,7 +100,7 @@ function productLoaded(product) {
 }
 export function loadProduct(id) {
   return function (dispatch) {
-    fetch(`/product/${id}`)
+    fetch(`/products/${id}`)
     .then( (res) => {
       return res.json();
     }).then( (product) => {
@@ -117,7 +117,7 @@ function vehicleLoaded(vehicle) {
 }
 export function loadVehicle(id) {
   return function (dispatch) {
-    fetch(`/vehicle/${id}`)
+    fetch(`/vehicles/${id}`)
     .then( (res) => {
       return res.json();
     }).then( (vehicle) => {
