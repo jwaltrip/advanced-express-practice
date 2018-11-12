@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 // setup mongoDB connection
 mongoose.Promise = global.Promise;
 // mongoDB connection string
-mongoose.connect("mongodb://aca-user:pass1234@ds159563.mlab.com:59563/advanced-express-practice");
+mongoose.connect("mongodb://aca-user:pass123@ds159563.mlab.com:59563/advanced-express-practice");
 
 // TODO import mongoose models
 
